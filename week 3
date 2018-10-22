@@ -1,2 +1,32 @@
 Функции от по-висок ред
 
+1. Дефинирайте функция (apply-twice f arg), която прилага функцията f два пъти 
+пример: (apply-twice sqrt 16) ;връща 2
+
+(define (apply-twice f arg)
+         (f(f arg)))
+         
+2. Дефинирайте функция (apply-n number f arg), която прилага функцията f n пъти
+пример: (apply-n 3 sqrt 256) ;връща 2 
+ 
+ (define (apply-n number f arg)
+ 
+         (if(< number 1)
+          arg
+          
+         (apply-n (- number 1) f (f arg))))
+         
+         
+3. Дефинирайте функция (factorial number), използвайки accumulate
+         
+(define (accumulate operation base start end term next)
+  (if (> start end)
+      base
+      (operation 
+            (term start) 
+            (accumulate operation base (next start) end term next))))
+            
+(define (factorial number)
+        (if(< number 1)
+        number
+(accumulate * 1 1 number (lambda(x) x) (lambda(n)(+ n 1)))))
