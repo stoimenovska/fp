@@ -4,9 +4,9 @@
                      (4 () ())
                      (5 () ()))))
 ;task 1
-(define (plus tree)
+(define (sum tree)
   (cond ((null? tree) 0)
-        (else (+ (car tree)(plus (car(cdr tree)))(plus (car(cdr(cdr tree))))))))
+        (else (+ (car tree)(sum (car(cdr tree)))(sum (car(cdr(cdr tree))))))))
 
 ;(sum tree)
 
