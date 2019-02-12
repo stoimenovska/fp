@@ -41,10 +41,18 @@ reverse' n
  | otherwise = (n `mod` 10) * (10 ^ (length' n - 1)) + reverse' (n `div` 10)
 
 --task 7
+sumDivisors :: Int -> Int
+sumDivisors n = helper 1 n
+   where helper i n 
+           | i > n            = 0
+           | (n `mod` i) == 0 = i + helper (i + 1) n 
+           | otherwise        = helper (i + 1) n 
+       
+--task 8
 palindrome :: Int -> Bool
 palindrome n = n == (reverse' n)
 
---task 8
+--task 9 
 prime :: Int -> Bool
 prime 1 = True
 prime n = help 2 n
@@ -53,4 +61,30 @@ prime n = help 2 n
            | i == n      = True
            | divides i n = False
            | otherwise   = help (i + 1) n
+
+--task 10
+gcd' :: Int -> Int -> Int
+gcd' a b
+  | a == b = a 
+  | a > b = gcd' (a - b) b
+  | otherwise = gcd' a (b - a)
+
+coprime :: Int -> Int -> Bool
+coprime a b = gcd' a b == 1
+
+--task 11
+goldbrach :: Int -> (Int, Int)
+goldbrach n = helper 1 n
+  where helper i number
+          | i == number                   = error "wrong"
+          | prime i && prime (number - i) = (i, n - i)
+          | otherwise                     = helper (i + 1) n
+          
+--task 12
+euler :: Int -> Int
+euler n = helper 1 n
+  where helper i n
+          | i > n       = 0
+          | coprime i n = 1 + helper (i + 1) n
+          | otherwise   = helper (i + 1) n
 
